@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create New Account</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Link to main CSS -->
+  <link rel="stylesheet" href="style/main.css" />
+</head>
+<body class="auth-page">
+
+  <!-- ===== Top Green Bar ===== -->
+  <header class="top-bar">
+    <button class="menu-btn" id="menuToggle">☰</button>
+  </header>
+
+  <!-- ===== Sidebar Navigation ===== -->
+  <nav id="sidebar" class="sidebar">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="browse.html">Browse Events</a></li>
+      <li><a href="bookings.html">My Bookings</a></li>
+      <li class="disabled">Manage Events</li>
+      <li class="disabled">Reports</li>
+      <li><a href="#">Log Out</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== Center Form Box ===== -->
+  <main class="auth-container">
+    <div class="auth-box">
+      <h1>Create New Account</h1>
+      <p class="subtext">
+        Already Registered?
+        <a href="#">Login</a>
+      </p>
+
+      <form id="signup-form">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Firstname Lastname" required />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="email@example.com" required />
+
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="********" required />
+
+        <button type="submit" class="signup-btn">SIGN UP</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- ===== Script for Menu Toggle ===== -->
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const sidebar = document.getElementById("sidebar");
+
+    menuToggle.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+    });
+  </script>
+</body>
+</html>
