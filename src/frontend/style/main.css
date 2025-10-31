@@ -266,3 +266,328 @@ input:focus {
 .signup-btn:hover {
   background-color: #0056b3;
 }
+
+/* =========================================
+   SCROLLABLE EVENT TABLE (green w/ white pills)
+   ========================================= */
+.table-scroller {
+  /* sets the rounded light-green frame and scrolling behavior */
+  background: #cfe6c6;              /* light green */
+  border: 1px solid #9bbf8a;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
+  overflow: hidden;                  /* clip the rounded corners */
+  max-height: 360px;                 /* 👉 adjust height if needed */
+  overflow-y: auto;                  /* vertical scroll */
+  margin-top: 16px;
+}
+
+/* make the header stay visible while scrolling */
+.table-scroller thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #a6cea0;              /* darker green for header */
+  color: #000;
+}
+
+/* base table */
+.event-table {
+  width: 100%;
+  border-collapse: separate;         /* keep cell spacing crisp with rounded frame */
+  border-spacing: 0;
+  table-layout: fixed;               /* respect colgroup widths and prevent overflow */
+  color: #000;                       /* black text */
+}
+
+.event-table th,
+.event-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  vertical-align: middle;
+  overflow-wrap: anywhere;
+}
+
+/* row backgrounds: subtle alternating greens */
+.event-table tbody tr { background: #cfe6c6; }      /* light green */
+.event-table tbody tr:nth-child(even) { background: #dcefd6; }
+
+.event-table tbody tr:hover {
+  background: #e6f5df;               /* hover highlight */
+}
+
+/* the white “pill” behind event titles */
+.event-title-pill {
+  display: inline-block;
+  background: #fff;
+  color: #000;
+  padding: 6px 10px;
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);
+  line-height: 1.2;
+}
+
+/* location cell with pin icon */
+.loc { display: inline-flex; align-items: center; gap: 6px; }
+.pin { opacity: .85; }
+
+/* nicer scrollbar (WebKit browsers) */
+.table-scroller::-webkit-scrollbar { width: 10px; }
+.table-scroller::-webkit-scrollbar-track { background: #cfe6c6; }
+.table-scroller::-webkit-scrollbar-thumb {
+  background: #9bbf8a;
+  border-radius: 10px;
+  border: 2px solid #cfe6c6;
+}
+
+/* small screens: allow horizontal scroll if columns get tight */
+@media (max-width: 700px) {
+  .table-scroller { overflow-x: auto; }
+  .event-table { min-width: 640px; } /* prevent columns from collapsing */
+}
+/* =========================================
+   EVENTS PAGE LAYOUT (Title, Table, Search)
+   ========================================= */
+
+.events-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: #000;
+  font-size: 2rem;
+  margin: 2rem 0 1rem 6%; /* slightly to the left */
+}
+
+.events-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 40px;
+  margin-left: 6%;
+  margin-right: 6%;
+}
+
+.table-scroller {
+  flex: 1;
+  max-width: 70%;
+}
+
+.search-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+.search-side input {
+  padding: 10px 16px;
+  width: 250px;
+  border: 1.5px solid #7aa76d;
+  border-radius: 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+  background-color: #ffffff;
+}
+
+.search-side input:focus {
+  border-color: #003366;
+}
+
+@media (max-width: 900px) {
+  .events-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .table-scroller {
+    max-width: 100%;
+  }
+  .search-side {
+    margin-top: 20px;
+  }
+}
+/* =========================================
+   EVENT PAGE ADJUSTMENTS
+   ========================================= */
+
+/* Bigger title */
+.events-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: #000;
+  font-size: 2.3rem;
+  margin: 2rem 0 1rem 6%;
+}
+
+/* Wider table & shorter search bar */
+.events-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 50px;
+  margin-left: 6%;
+  margin-right: 6%;
+}
+
+.table-scroller {
+  flex: 1;
+  max-width: 75%; /* wider table */
+}
+
+/* Search bar on right */
+.search-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+.search-side input {
+  padding: 8px 14px;
+  width: 160px; /* shorter */
+  border: 1.5px solid #7aa76d;
+  border-radius: 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+  background-color: #ffffff;
+}
+
+.search-side input:focus {
+  border-color: #003366;
+}
+
+/* Add space before "LEARN MORE" section */
+.about-section {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+  margin: 80px 6% 60px 6%; /* creates nice spacing */
+}
+
+/* Text section */
+.about-text {
+  flex: 1;
+}
+
+/* "LEARN MORE" and "About Us" in Playfair font */
+.learn-more,
+.about-heading {
+  font-family: 'Playfair Display', serif;
+  color: #000;
+}
+
+.learn-more {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.about-heading {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.about-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Image styling */
+.about-image {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.about-image img {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+/* =========================================
+   HEADER (Home Page Only)
+   ========================================= */
+body.home-page header {
+  background-color: #b7d9a8; /* same soft green as your table */
+  color: #000; /* black text for readability */
+  padding: 0.6rem 2rem; /* thinner header */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #9bbf8a; /* subtle green border */
+}
+
+/* Home page title font */
+body.home-page header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #000;
+  margin: 0;
+}
+
+/* Home page nav links */
+body.home-page nav a {
+  color: #000; /* black links */
+  text-decoration: none;
+  margin: 0 1rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+body.home-page nav a:hover {
+  color: #004400; /* darker green hover */
+}
+<!-- ===============================
+     HEADER (Same as Login Page)
+     =============================== -->
+<header class="top-bar">
+  <button class="menu-btn" id="menuToggle">☰</button>
+
+  <nav class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="bookings.html">My Bookings</a>
+    <a href="admin.html">Admin</a>
+    <a href="login.html">Login</a>
+  </nav>
+</header>
+
+
+/* Menu button on left */
+.menu-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.menu-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Nav links on the right */
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  margin-left: 1.5rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+.nav-links a:hover {
+  opacity: 0.85;
+}
+
+/* When you open sidebar menu (future toggle) */
+.sidebar.open {
+  left: 0;
+}

@@ -55,6 +55,10 @@
   </main>
 
   <!-- ===== Script for Menu Toggle ===== -->
+  <!-- This javaScript section makes hamburger button work
+       finds menu botton and the sidebar
+       when you click, it toggles open class-->
+
   <script>
     const menuToggle = document.getElementById("menuToggle");
     const sidebar = document.getElementById("sidebar");
@@ -65,3 +69,157 @@
   </script>
 </body>
 </html>
+
+
+/* ==============================
+   GLOBAL STYLES
+   ============================== */
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  background-color: #ffffff;
+  color: #111;
+}
+
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+  color: #000;
+}
+
+/* ==============================
+   HEADER / NAVIGATION
+   ============================== */
+header {
+  background-color: #b7d9a8; /* light green top bar */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  border-bottom: 2px solid #9bbf8a;
+}
+
+header h1 {
+  font-size: 1.5rem;
+}
+
+nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #000;
+  font-weight: 500;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* ==============================
+   MAIN CONTENT AREA
+   ============================== */
+main {
+  padding: 40px 80px;
+}
+
+/* Section title */
+main h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+/* ==============================
+   SEARCH BAR
+   ============================== */
+.search-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.search-container input {
+  padding: 8px 12px;
+  width: 250px;
+  border: 1.5px solid #7aa76d;
+  border-radius: 20px;
+  outline: none;
+}
+
+.search-container input::placeholder {
+  color: #555;
+}
+
+/* ==============================
+   EVENT TABLE
+   ============================== */
+.event-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 50px;
+}
+
+.event-table th {
+  background-color: #b7d9a8;
+  color: #000;
+  padding: 12px;
+  text-align: left;
+  border-bottom: 2px solid #9bbf8a;
+}
+
+.event-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.event-table tr:nth-child(even) {
+  background-color: #f5f8f3;
+}
+
+.event-table tr:hover {
+  background-color: #eaf4e0;
+}
+
+/* ==============================
+   ABOUT US SECTION
+   ============================== */
+.about-section {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+  margin-top: 60px;
+}
+
+.about-text {
+  flex: 1;
+}
+
+.about-text h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.about-text p {
+  font-size: 1rem;
+  color: #333;
+}
+
+.about-image {
+  flex: 1;
+}
+
+.about-image img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* ==============================
+   FOOTER
+   ============================== */
+footer {
+  text-align: center;
+  background-color: #b7d9a8;
+  padding: 15px;
+  font-size: 0.9rem;
+  border-top: 2px solid #9bbf8a;
+}
