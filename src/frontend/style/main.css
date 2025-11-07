@@ -544,9 +544,7 @@ body.home-page nav a {
 body.home-page nav a:hover {
   color: #004400; /* darker green hover */
 }
-<!-- ===============================
-     HEADER (Same as Login Page)
-     =============================== -->
+
 <header class="top-bar">
   <button class="menu-btn" id="menuToggle">☰</button>
 
@@ -590,4 +588,220 @@ body.home-page nav a:hover {
 /* When you open sidebar menu (future toggle) */
 .sidebar.open {
   left: 0;
+}
+
+.event-title {
+  text-align: center;          /* centers the title horizontally */
+  font-family: 'Playfair Display', serif;  /* elegant font */
+  font-size: 2.2rem;           /* larger title */
+  color: #000;                 /* black text for contrast */
+  margin-top: 1rem;            /* space above */
+  margin-bottom: 0.5rem;       /* space below before date */
+}
+
+.event-date {
+  text-align: center;          /* aligns the date under the title */
+  font-family: 'Inter', sans-serif;  /* clean font for subtext */
+  color: #444;                 /* medium gray for softer look */
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;       /* adds space before the buttons */
+}
+
+.seat-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 2rem;
+}
+
+/* Make both behave the same visually */
+.book-btn,
+.seat-info {
+  display: inline-flex;          /* Use inline-flex for both */
+  align-items: center;           /* Vertically center content */
+  justify-content: center;       /* Center text horizontally */
+  height: 48px;                  /* Consistent height */
+  padding: 0 1.5rem;
+  background-color: #8db48e;     /* Same green as header */
+  border: 2px solid #000;
+  border-radius: 8px;
+  color: #000;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1;                /* Ensures text centers properly */
+  box-sizing: border-box;
+}
+
+/* Button-specific hover */
+.book-btn:hover {
+  background-color: #7aa76d;
+}
+
+/* Optional: slight spacing between icon and text */
+.book-btn i {
+  margin-right: 6px;
+  position: relative;
+  top: 1px; /* aligns icon baseline with text */
+}
+
+
+
+/* Available seats box */
+.seat-info {
+  background-color: #8db48e;
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 8px;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.seat-controls {
+  display: flex;               /* aligns the button + text side by side */
+  justify-content: center;     /* centers the whole group horizontally */
+  align-items: center;         /* keeps them vertically aligned */
+  gap: 16px;                   /* adds space between button and text */
+  margin: 1.5rem auto 2rem auto;  /* centers the block itself on the page */
+  text-align: center;          /* ensures inner text aligns if needed */
+  width: fit-content;          /* makes container only as wide as content */
+}
+
+/* ========== ABOUT SECTIONS (Event + Organization) ========== */
+
+.event-details {
+  display: flex;
+  justify-content: center;      /* center them horizontally */
+  align-items: stretch;         /* makes both boxes equal height */
+  gap: 30px;                    /* space between boxes */
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;              /* stacks them on small screens */
+}
+
+/* Each box */
+.detail-box {
+  background-color: #8db48e;    /* same green as Save Seat button */
+  border: 1px solid #000;
+  border-radius: 8px;
+  padding: 1.5rem;
+  flex: 1;                      /* each box gets equal width in row */
+  max-width: 400px;             /* keeps them from being too wide */
+  display: flex;                /* make each box its own flex container */
+  flex-direction: column;       /* stacks title + text vertically */
+  justify-content: space-between; /* spreads content evenly if needed */
+  box-sizing: border-box;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Title and text inside each box */
+.detail-box h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.detail-box p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: #111;
+  line-height: 1.4;
+  flex-grow: 1;                 /* allows paragraph to expand as needed */
+}
+
+/* ========== USER STATUS BOX (Top Right) ========== */
+.user-status {
+  position: absolute;       /* lets us position it relative to the page */
+  top: 60px;                /* pushes it down below the header bar */
+  right: 40px;              /* pushes it from the right edge */
+  background-color: #dcefd6; /* light green background */
+  border: 2px solid #8db48e; /* same color family as buttons */
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: none;            /* hidden by default */
+  text-align: right;
+}
+
+.user-status p {
+  margin: 4px 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.release-btn {
+  background-color: #8db48e;
+  color: #000;
+  border: 1px solid #000;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.release-btn:hover {
+  background-color: #7aa76d;
+}
+
+
+/* ========== BOOKINGS PAGE (Improved Layout) ========== */
+.bookings-page {
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* centers the list horizontally */
+}
+
+/* Each booking block */
+.booking-item {
+  background-color: #8db48e;
+  border: 1px solid #000;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  margin: 1rem 0; /* vertical spacing */
+  width: 100%;
+  max-width: 400px; /* keeps centered block narrow */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  text-align: center;
+  position: relative;
+}
+
+/* Add line underneath each event */
+.booking-item::after {
+  content: "";                 /* this creates the line */
+  display: block;
+  width: 80%;                  /* shorter than the box width for style */
+  height: 2px;
+  background-color: #000;      /* black line */
+  margin: 1rem auto 0 auto;    /* spacing above/below line */
+  opacity: 0.3;                /* make it subtle */
+}
+
+/* Optional: slightly bold event names */
+.booking-item h3 {
+  margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', serif;
+}
+
+/* Style for the release button */
+.booking-item .release-btn {
+  background-color: #8db48e;
+  border: 1px solid #000;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.booking-item .release-btn:hover {
+  background-color: #7aa76d;
 }

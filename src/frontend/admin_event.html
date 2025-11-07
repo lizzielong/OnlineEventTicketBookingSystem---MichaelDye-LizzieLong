@@ -1,0 +1,89 @@
+<!--
+Eventually, user will log in, backend will verify
+credentials, the backend will send back a "role"
+to the front end, then the Javascript will store that
+in local storage (cookie), then admin_event.html will
+check stored value to know if they are an admin
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create New Event</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style/main.css" />
+</head>
+<body class="auth-page">
+  <header class="top-bar">
+    <button class="menu-btn" id="menuToggle">☰</button>
+  </header>
+
+  <main class="auth-container">
+    <div class="auth-box">
+      <h1>Create a New Event</h1>
+
+      <form id="eventForm">
+        <label for="eventName">Event Name</label>
+        <input type="text" id="eventName" placeholder="e.g. Combined Worship Night" required>
+
+        <label for="eventDate">Date</label>
+        <input type="text" id="eventDate" placeholder="e.g. Saturday, October 4, 2025" required>
+
+        <label for="eventTime">Time</label>
+        <input type="text" id="eventTime" placeholder="e.g. 6:30 PM" required>
+
+        <label for="eventLocation">Location</label>
+        <input type="text" id="eventLocation" placeholder="e.g. Brashier Glade" required>
+
+        <label for="eventAbout">About Event</label>
+        <textarea id="eventAbout" rows="4" placeholder="Describe the event..."></textarea>
+
+        <label for="orgAbout">About Organization/Leader</label>
+        <textarea id="orgAbout" rows="4" placeholder="Who is leading this event?"></textarea>
+
+        <label for="availableSeats">Seats Available</label>
+        <input type="number" id="availableSeats" placeholder="e.g. 50" required min="1">
+
+        <button type="submit" class="signup-btn">Save Event</button>
+      </form>
+
+      <p id="saveMessage" style="margin-top:10px;color:green;"></p>
+    </div>
+  </main>
+
+  <script>
+    // Save event to localStorage
+    const eventForm = document.getElementById('eventForm');
+    const saveMessage = document.getElementById('saveMessage');
+
+    eventForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Get values from form
+      const newEvent = {
+        name: document.getElementById('eventName').value,
+        date: document.getElementById('eventDate').value,
+        time: document.getElementById('eventTime').value,
+        location: document.getElementById('eventLocation').value,
+        about: document.getElementById('eventAbout').value,
+        org: document.getElementById('orgAbout').value,
+        seats: parseInt(document.getElementById('availableSeats').value)
+      };
+
+      // Get existing events or create a new list
+      let events = JSON.parse(localStorage.getItem('events')) || [];
+
+      // Add the new event
+      events.push(newEvent);
+
+      // Save back to localStorage
+      localStorage.setItem('events', JSON.stringify(events));
+
+      saveMessage.textContent = "✅ Event saved successfully!";
+      eventForm.reset();
+    });
+  </script>
+</body>
+</html>
