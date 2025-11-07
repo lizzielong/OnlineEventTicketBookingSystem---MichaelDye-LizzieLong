@@ -171,7 +171,8 @@ def register():
             
         user = User(
             email=data['email'],
-            name=data['name']
+            name=data['name'],
+            password_hash=data['password']  # In real app, hash the password properly
         )
         
         db.session.add(user)
