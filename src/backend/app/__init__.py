@@ -13,7 +13,6 @@ def create_app() -> Flask:
 
     CORS(app, resources={r"/api/*": {"origins": "*"}})
 
-
     # Register blueprints
     from .routes import bp as routes_bp
     app.register_blueprint(routes_bp)
