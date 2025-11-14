@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from .models import db
 from .config import Config
 from flask import current_app
@@ -9,6 +10,9 @@ from .seed import seed_database
 def create_app() -> Flask:
     app = Flask(__name__)
     app.config.from_object(Config)
+
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
+
 
     # Register blueprints
     from .routes import bp as routes_bp
