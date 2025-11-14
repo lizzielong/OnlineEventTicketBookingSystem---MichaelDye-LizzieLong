@@ -1,9 +1,58 @@
-from flask import Blueprint, jsonify, request, current_app
+from flask import Blueprint, jsonify, request, current_app, render_template, send_from_directory
+import os
 from .models import db, User, Event, Booking
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
 bp = Blueprint("main", __name__)
+
+# Get the absolute path to your frontend folder
+FRONTEND_PATH = os.path.join(os.path.dirname(__file__), '..', '..', 'frontend')
+
+# ===== FRONTEND ROUTES =====
+
+@bp.get("/")
+def serve_index():
+    """Serve the main landing page"""
+    return send_from_directory(FRONTEND_PATH, 'index.html')
+
+@bp.get("/<path:page>")
+def serve_frontend_pages(page):
+    """Serve all other HTML pages"""
+    # If the request is for an HTML page, serve it
+    if page.endswith('.html') or '.' not in page:
+        # Handle both "login" and "login.html" requests
+        if '.' not in page:
+            page += '.html'
+        
+        # Check if the file exists
+        file_path = os.path.join(FRONTEND_PATH, page)
+        if os.path.exists(file_path):
+            return send_from_directory(FRONTEND_PATH, page)
+        else:
+            # If the HTML file doesn't exist, fall back to index.html
+            # This allows for client-side routing if you add it later
+            return send_from_directory(FRONTEND_PATH, 'index.html')
+    
+    # For all other files (CSS, JS, images), serve them directly
+    return send_from_directory(FRONTEND_PATH, page)
+
+# ===== STATIC ASSETS =====
+
+@bp.get("/js/<path:filename>")
+def serve_js(filename):
+    """Serve JavaScript files"""
+    return send_from_directory(os.path.join(FRONTEND_PATH, 'js'), filename)
+
+@bp.get("/style/<path:filename>")
+def serve_css(filename):
+    """Serve CSS files"""
+    return send_from_directory(os.path.join(FRONTEND_PATH, 'style'), filename)
+
+@bp.get("/images/<path:filename>")
+def serve_images(filename):
+    """Serve image files"""
+    return send_from_directory(os.path.join(FRONTEND_PATH, 'images'), filename)
 
 # ===== HEALTH ROUTES =====
 
