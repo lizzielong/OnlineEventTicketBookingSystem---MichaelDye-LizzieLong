@@ -5,6 +5,8 @@ from datetime import datetime, timedelta
 from .models import db, User, Event, Booking
 
 
+from werkzeug.security import generate_password_hash
+
 def seed_database() -> None:
     db.create_all()
 
@@ -13,8 +15,8 @@ def seed_database() -> None:
         return
 
     # Users
-    alice = User(email="alice@example.com", name="Alice")
-    bob = User(email="bob@example.com", name="Bob")
+    alice = User(email="alice@example.com", name="Alice", password_hash=generate_password_hash("password123"))
+    bob = User(email="bob@example.com", name="Bob", password_hash=generate_password_hash("securepass"))
     db.session.add_all([alice, bob])
 
     # Events
