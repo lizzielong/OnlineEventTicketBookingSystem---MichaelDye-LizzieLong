@@ -14,7 +14,7 @@ FRONTEND_PATH = os.path.join(os.path.dirname(__file__), '..', '..', 'frontend')
 @bp.get("/")
 def serve_index():
     """Serve the main landing page"""
-    return send_from_directory(FRONTEND_PATH, 'index.html')
+    return send_from_directory(FRONTEND_PATH, 'login.html')
 
 @bp.get("/<path:page>")
 def serve_frontend_pages(page):
