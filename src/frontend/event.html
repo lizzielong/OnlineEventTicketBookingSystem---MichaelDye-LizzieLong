@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Event Details</title>
+  <link rel="stylesheet" href="style/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+  <!-- Top Green Header (same as other pages) -->
+  <header class="top-bar">
+    <button class="menu-btn" id="menuToggle">☰</button>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="bookings.html">My Bookings</a>
+      <a href="admin.html">Admin</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <!-- User Confirmation Area -->
+  <div class="user-status">
+    <!-- This will be filled dynamically with JS -->
+  </div>
+
+
+
+  <!-- Event Content -->
+  <main class="event-page">
+    <a href="index.html" class="back-btn">← See all events</a>
+
+   <h1 class="event-title">Combined Worship Night</h1>
+<p class="event-date">Saturday, October 4, 2025 • 6:30pm</p>
+
+<div class="seat-controls">
+  <button class="book-btn">
+    <i class="fa-solid fa-chair"></i> Save Seat
+  </button>
+
+  <p class="seat-available">
+    <strong>Available:</strong> <span id="seatsAvailable">47</span>
+  </p>
+</div>
+
+
+<div class="event-details">
+  <div class="detail-box" id="about-event">
+    <h3>About Event</h3>
+    <p id="event-description">
+      All important event details can go here that the Admin writes in —
+      vision behind the event, what to bring, what to expect, etc.
+    </p>
+  </div>
+
+  <div class="detail-box" id="about-organization">
+    <h3>About Organization/Leader</h3>
+    <p id="organization-description">
+      All important organization details can go here that the Admin writes in —
+      vision behind the organization, how to get connected, etc.
+    </p>
+  </div>
+</div>
+
+
+<script src="js/event.js"></script>
+
+</body>
+</html>

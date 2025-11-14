@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login to Your Account</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Link to main CSS -->
+  <link rel="stylesheet" href="style/main.css" />
+</head>
+<body class="auth-page">
+
+  <!-- ===== Top Green Bar ===== -->
+  <header class="top-bar">
+    <button class="menu-btn" id="menuToggle">☰</button>
+  </header>
+
+  <!-- ===== Sidebar Navigation ===== -->
+  <nav id="sidebar" class="sidebar">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="browse.html">Browse Events</a></li>
+      <li><a href="bookings.html">My Bookings</a></li>
+      <li class="disabled">Manage Events</li>
+      <li class="disabled">Reports</li>
+      <li><a href="#">Log Out</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== Login Form ===== -->
+  <main class="auth-container">
+    <div class="auth-box">
+      <h1>Login</h1>
+
+      <form id="login-form">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="email@example.com" required />
+
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="********" required />
+
+        <button type="submit" class="signup-btn">LOGIN</button>
+      </form>
+
+      <p id="login-message" class="subtext" style="margin-top: 10px; color: red;"></p>
+
+      <p class="subtext">
+        Don't have an account? <a href="login.html">Create one</a>
+      </p>
+
+      <hr style="margin: 20px 0;">
+
+      <button id="admin-login" class="signup-btn" style="background-color: #444;">
+        Log in as Admin
+      </button>
+    </div>
+  </main>
+
+<script src="js/existing_account.js"></script>
+
+</body>
+</html>

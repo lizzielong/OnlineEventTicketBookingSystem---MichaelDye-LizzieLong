@@ -34,9 +34,10 @@
   <main class="auth-container">
     <div class="auth-box">
       <h1>Create New Account</h1>
+      
       <p class="subtext">
         Already Registered?
-        <a href="#">Login</a>
+        <a href="existing_account.html">Login</a>
       </p>
 
       <form id="signup-form">
@@ -59,14 +60,8 @@
        finds menu botton and the sidebar
        when you click, it toggles open class-->
 
-  <script>
-    const menuToggle = document.getElementById("menuToggle");
-    const sidebar = document.getElementById("sidebar");
-
-    menuToggle.addEventListener("click", () => {
-      sidebar.classList.toggle("open");
-    });
-  </script>
+  <script src="js/login.js"></script>
+  
 </body>
 </html>
 
