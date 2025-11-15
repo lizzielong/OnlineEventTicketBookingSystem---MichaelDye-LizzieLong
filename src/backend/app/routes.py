@@ -293,22 +293,22 @@ def register():
 
 @bp.post("/api/login")
 def login():
-    """Login user"""
     try:
         data = request.get_json()
         
-        # Validate required fields
         if 'email' not in data or 'password' not in data:
             return jsonify({"error": "Email and password are required"}), 400
         
         user = User.query.filter_by(email=data['email']).first()
         
         if user and check_password_hash(user.password_hash, data['password']):
+            # TODO: Add session creation here
             return jsonify({
                 "success": True, 
                 "user_id": user.id,
                 "name": user.name,
-                "email": user.email
+                "email": user.email,
+                "user_type": user.user_type  # Return user type
             })
         else:
             return jsonify({"error": "Invalid email or password"}), 401

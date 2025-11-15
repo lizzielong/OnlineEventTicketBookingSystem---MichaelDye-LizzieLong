@@ -4,12 +4,14 @@ from .models import db
 from .config import Config
 from flask import current_app
 import click
+import os
 from .seed import seed_database
 
 
 def create_app() -> Flask:
     app = Flask(__name__)
     app.config.from_object(Config)
+    app.config['SECRET_KEY'] = os.urandom(24)  # Random 24-byte key
 
     CORS(app, resources={r"/api/*": {"origins": "*"}})
 
