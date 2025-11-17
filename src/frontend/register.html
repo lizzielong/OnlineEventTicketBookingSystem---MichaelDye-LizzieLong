@@ -20,14 +20,20 @@
 
   <!-- ===== Sidebar Navigation ===== -->
   <nav id="sidebar" class="sidebar">
-    <ul>
-      <li><a href="/index">Home</a></li>
-      <li><a href="/browse">Browse Events</a></li>
-      <li><a href="/bookings">My Bookings</a></li>
-      <li class="disabled">Manage Events</li>
-      <li class="disabled">Reports</li>
-      <li><a href="#">Log Out</a></li>
-    </ul>
+      <ul>
+          <li><a href="/index">Home</a></li>
+          <li><a href="/browse">Browse Events</a></li>
+          <li><a href="/bookings">My Bookings</a></li>
+          <li id="admin-nav" style="display: none;">
+              <a href="/admin_event">Manage Events</a>
+          </li>
+          <li id="login-nav">
+              <a href="/login">Login</a>
+          </li>
+          <li id="logout-nav" style="display: none;">
+              <a href="#" onclick="AuthHelper.logout()">Log Out</a>
+          </li>
+      </ul>
   </nav>
 
   <!-- ===== Center Form Box ===== -->
@@ -61,6 +67,7 @@
        when you click, it toggles open class-->
 
   <script src="/js/register.js"></script>
+  <script src="/js/auth.js"></script>
   
 </body>
 </html>

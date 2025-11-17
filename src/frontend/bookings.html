@@ -9,13 +9,14 @@
 <body>
   <!-- Header (same as other pages) -->
   <header class="top-bar">
-    <button class="menu-btn" id="menuToggle">☰</button>
-    <nav class="nav-links">
-      <a href="/index">Home</a>
-      <a href="/bookings">My Bookings</a>
-      <a href="/admin">Admin</a>
-      <a href="/login">Login</a>
-    </nav>
+      <button class="menu-btn" id="menuToggle">☰</button>
+      <nav class="nav-links">
+          <a href="/index">Home</a>
+          <a href="/bookings">My Bookings</a>
+          <a href="/admin_event" id="admin-nav-link" style="display: none;">Admin</a>
+          <a href="/login" id="login-nav-link">Login</a>
+          <a href="#" id="logout-nav-link" style="display: none;" onclick="AuthHelper.logout()">Log Out</a>
+      </nav>
   </header>
 
   <main class="bookings-page">
@@ -24,6 +25,7 @@
   </main>
 
 <script src="/js/bookings.js"></script>
+<script src="/js/auth.js"></script>
 
 </body>
 </html>

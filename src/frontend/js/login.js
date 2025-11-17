@@ -1,32 +1,51 @@
-  // Grab the form elements
-    const loginForm = document.getElementById("login-form");
-    const message = document.getElementById("login-message");
+// Grab the form elements
+const loginForm = document.getElementById("login-form");
+const message = document.getElementById("login-message");
 
-    // Demo user and admin credentials
-    const demoUser = { email: "user@example.com", password: "user123" };
-    const admin = { email: "admin@example.com", password: "admin123" };
+// Handle login using the API
+loginForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-    // Handle normal user login
-    loginForm.addEventListener("submit", (e) => {
-      e.preventDefault();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
 
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value.trim();
-
-      if (email === demoUser.email && password === demoUser.password) {
-        localStorage.setItem("loggedInUser", email);
-        localStorage.setItem("userRole", "user");
-        window.location.href = "index.html"; // normal users go to homepage
-      } else if (email === admin.email && password === admin.password) {
-        localStorage.setItem("loggedInUser", email);
-        localStorage.setItem("userRole", "admin");
-        window.location.href = "admin_event.html"; // admins go to event manager
-      } else {
-        message.textContent = "Invalid email or password.";
-      }
+  try {
+    const response = await fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, password })
     });
 
-    // Menu toggle for sidebar
-    const menuToggle = document.getElementById("menuToggle");
-    const sidebar = document.getElementById("sidebar");
-    menuToggle.addEventListener("click", () => sidebar.classList.toggle("open"));
+    const data = await response.json();
+
+    if (data.success) {
+      // Store user data in localStorage for frontend use
+      localStorage.setItem("currentUser", JSON.stringify({
+        user_id: data.user_id,
+        name: data.name,
+        email: data.email,
+        user_type: data.user_type
+      }));
+      
+      message.textContent = "Login successful! Redirecting...";
+      message.style.color = "green";
+      
+      // Redirect based on user type
+      setTimeout(() => {window.location.href = "/index";}, 1000);
+    } else {
+      message.textContent = data.error || "Login failed";
+      message.style.color = "red";
+    }
+  } catch (error) {
+    console.error('Login error:', error);
+    message.textContent = "Network error. Please try again.";
+    message.style.color = "red";
+  }
+});
+
+// Menu toggle for sidebar
+const menuToggle = document.getElementById("menuToggle");
+const sidebar = document.getElementById("sidebar");
+menuToggle.addEventListener("click", () => sidebar.classList.toggle("open"));

@@ -17,7 +17,8 @@ def seed_database() -> None:
     # Users
     alice = User(email="alice@example.com", name="Alice", password_hash=generate_password_hash("password123"))
     bob = User(email="bob@example.com", name="Bob", password_hash=generate_password_hash("securepass"))
-    db.session.add_all([alice, bob])
+    admin = User(email="admin@example.com", name="Admin", password_hash=generate_password_hash("adminpass"), user_type='admin')
+    db.session.add_all([alice, bob, admin])
 
     # Events
     now = datetime.utcnow()

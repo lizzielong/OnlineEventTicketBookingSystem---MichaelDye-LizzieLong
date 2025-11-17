@@ -11,7 +11,8 @@ from .seed import seed_database
 def create_app() -> Flask:
     app = Flask(__name__)
     app.config.from_object(Config)
-    app.config['SECRET_KEY'] = os.urandom(24)  # Random 24-byte key
+    app.config['SECRET_KEY'] = os.urandom(24)
+    app.config['SESSION_TYPE'] = 'filesystem'
 
     CORS(app, resources={r"/api/*": {"origins": "*"}})
 

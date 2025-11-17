@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request, current_app, render_template, send_from_directory
+from flask import Blueprint, jsonify, request, current_app, render_template, send_from_directory, session
 import os
 from .models import db, User, Event, Booking
 from datetime import datetime
@@ -8,6 +8,28 @@ bp = Blueprint("main", __name__)
 
 # Get the absolute path to your frontend folder
 FRONTEND_PATH = os.path.join(os.path.dirname(__file__), '..', '..', 'frontend')
+
+# ===== AUTHENTICATION HELPER FUNCTIONS =====
+
+def login_required(f):
+    """Decorator to require login for routes"""
+    from functools import wraps
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return jsonify({"error": "Login required"}), 401
+        return f(*args, **kwargs)
+    return decorated_function
+
+def admin_required(f):
+    """Decorator to require admin privileges"""
+    from functools import wraps
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session or session.get('user_type') != 'admin':
+            return jsonify({"error": "Admin access required"}), 403
+        return f(*args, **kwargs)
+    return decorated_function
 
 # ===== FRONTEND ROUTES =====
 
@@ -127,12 +149,11 @@ def get_event(event_id):
         return jsonify({"error": str(e)}), 500
 
 @bp.post("/api/events")
+@admin_required
 def create_event():
     """Create a new event (Admin only)"""
     try:
         data = request.get_json()
-        
-        # TODO: Add admin authorization check
         
         # Validate required fields
         required_fields = ['title', 'venue', 'starts_at', 'ends_at', 'capacity']
@@ -160,13 +181,14 @@ def create_event():
 # ===== BOOKING ROUTES =====
 
 @bp.post("/api/bookings")
+@login_required  # Add this decorator
 def create_booking():
-    """Make a booking"""
+    """Make a booking - now uses session user_id"""
     try:
         data = request.get_json()
         
-        # Validate required fields
-        required_fields = ['user_id', 'event_id', 'quantity']
+        # Validate required fields (no longer need user_id from frontend)
+        required_fields = ['event_id', 'quantity']
         for field in required_fields:
             if field not in data:
                 return jsonify({"error": f"Missing required field: {field}"}), 400
@@ -176,11 +198,9 @@ def create_booking():
         if not event:
             return jsonify({"error": "Event not found"}), 404
         
-        # Check if user exists
-        user = User.query.get(data['user_id'])
-        if not user:
-            return jsonify({"error": "User not found"}), 404
-            
+        # Use user_id from session instead of request
+        user_id = session['user_id']
+        
         # Check capacity
         total_booked = db.session.query(db.func.sum(Booking.quantity)).filter(
             Booking.event_id == data['event_id']
@@ -197,7 +217,7 @@ def create_booking():
             return jsonify({"error": "Cannot book for past events"}), 400
         
         booking = Booking(
-            user_id=data['user_id'],
+            user_id=user_id,  # From session
             event_id=data['event_id'],
             quantity=data['quantity']
         )
@@ -214,15 +234,12 @@ def create_booking():
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
 
-@bp.get("/api/users/<int:user_id>/bookings")
-def get_user_bookings(user_id):
-    """Get all bookings for a user"""
+@bp.get("/api/my-bookings")  # Changed from /api/users/<id>/bookings
+@login_required
+def get_my_bookings():
+    """Get all bookings for the current user"""
     try:
-        # Check if user exists
-        user = User.query.get(user_id)
-        if not user:
-            return jsonify({"error": "User not found"}), 404
-            
+        user_id = session['user_id']
         bookings = Booking.query.filter_by(user_id=user_id).all()
         return jsonify([{
             'id': booking.id,
@@ -276,15 +293,25 @@ def register():
         user = User(
             email=data['email'],
             name=data['name'],
-            password_hash=hashed_password
+            password_hash=hashed_password,
+            user_type='user'  # Default to regular user
         )
         
         db.session.add(user)
         db.session.commit()
         
+        # Automatically log in the user after registration
+        session['user_id'] = user.id
+        session['user_email'] = user.email
+        session['user_name'] = user.name
+        session['user_type'] = user.user_type
+        
         return jsonify({
             "success": True, 
             "user_id": user.id,
+            "name": user.name,
+            "email": user.email,
+            "user_type": user.user_type,
             "message": "User registered successfully"
         }), 201
     except Exception as e:
@@ -293,31 +320,59 @@ def register():
 
 @bp.post("/api/login")
 def login():
+    """Login user"""
     try:
         data = request.get_json()
         
+        # Validate required fields
         if 'email' not in data or 'password' not in data:
             return jsonify({"error": "Email and password are required"}), 400
         
         user = User.query.filter_by(email=data['email']).first()
         
         if user and check_password_hash(user.password_hash, data['password']):
-            # TODO: Add session creation here
+            # Set session variables
+            session['user_id'] = user.id
+            session['user_email'] = user.email
+            session['user_name'] = user.name
+            session['user_type'] = user.user_type
+            
             return jsonify({
                 "success": True, 
                 "user_id": user.id,
                 "name": user.name,
                 "email": user.email,
-                "user_type": user.user_type  # Return user type
+                "user_type": user.user_type
             })
         else:
             return jsonify({"error": "Invalid email or password"}), 401
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@bp.post("/api/logout")
+def logout():
+    """Logout user"""
+    session.clear()
+    return jsonify({"success": True, "message": "Logged out successfully"})
+
+@bp.get("/api/current_user")
+def get_current_user():
+    """Get current logged in user info"""
+    if 'user_id' in session:
+        return jsonify({
+            "logged_in": True,
+            "user_id": session['user_id'],
+            "name": session['user_name'],
+            "email": session['user_email'],
+            "user_type": session['user_type']
+        })
+    else:
+        return jsonify({"logged_in": False})
+
 # ===== ADMIN ROUTES =====
 
 @bp.put("/api/events/<int:event_id>")
+@admin_required
 def update_event(event_id):
     """Update an event (Admin only)"""
     try:
@@ -347,6 +402,7 @@ def update_event(event_id):
         return jsonify({"error": str(e)}), 500
 
 @bp.delete("/api/events/<int:event_id>")
+@admin_required
 def delete_event(event_id):
     """Delete an event (Admin only)"""
     try:

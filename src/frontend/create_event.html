@@ -18,7 +18,14 @@ check stored value to know if they are an admin
 <body class="auth-page">
   <header class="top-bar">
     <button class="menu-btn" id="menuToggle">☰</button>
-  </header>
+    <nav class="nav-links">
+        <a href="/index">Home</a>
+        <a href="/bookings">My Bookings</a>
+        <a href="/admin_event" id="admin-nav-link" style="display: none;">Manage Events</a>
+        <a href="/login" id="login-nav-link">Login</a>
+        <a href="#" id="logout-nav-link" style="display: none;" onclick="AuthHelper.logout()">Log Out</a>
+    </nav>
+</header>
 
   <main class="auth-container">
     <div class="auth-box">
@@ -54,6 +61,7 @@ check stored value to know if they are an admin
   </main>
 
 <script src="/js/create_event.js"></script>
+<script src="/js/auth.js"></script>
 
 </body>
 </html>
