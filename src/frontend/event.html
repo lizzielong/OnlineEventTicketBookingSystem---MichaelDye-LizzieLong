@@ -9,17 +9,29 @@
 
 </head>
 <body>
-  <!-- Top Green Header (same as other pages) -->
+<!-- ===== Top Green Bar ===== -->
   <header class="top-bar">
-      <button class="menu-btn" id="menuToggle">☰</button>
-      <nav class="nav-links">
-          <a href="/index">Home</a>
-          <a href="/bookings">My Bookings</a>
-          <a href="/admin_event" id="admin-nav-link" style="display: none;">Admin</a>
-          <a href="/login" id="login-nav-link">Login</a>
-          <a href="#" id="logout-nav-link" style="display: none;" onclick="AuthHelper.logout()">Log Out</a>
-      </nav>
+    <button class="menu-btn" id="menuToggle">☰</button>
   </header>
+
+  <!-- ===== Sidebar Navigation ===== -->
+  <nav id="sidebar" class="sidebar">
+    <ul>
+      <li><a href="/index">Home</a></li>
+      <li><a href="/browse">Browse Events</a></li>
+      <li><a href="/bookings">My Bookings</a></li>
+      <li id="admin-nav" style="display: none;">
+        <a href="/admin_event">Manage Events</a>
+      </li>
+      <li id="user-status-sidebar" style="padding: 10px 15px; font-weight: bold; color: #2c5f2d; border-bottom: 1px solid #ddd;"></li>
+      <li id="login-nav">
+        <a href="/login">Login</a>
+      </li>
+      <li id="logout-nav" style="display: none;">
+        <a href="#" onclick="AuthHelper.logout()">Log Out</a>
+      </li>
+    </ul>
+  </nav>
 
   <!-- User Confirmation Area -->
   <div class="user-status">

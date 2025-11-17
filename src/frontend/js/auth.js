@@ -58,10 +58,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // Update navigation based on login status
 function updateNavigationUI() {
+    // Sidebar navigation elements
     const loginNav = document.getElementById('login-nav');
     const logoutNav = document.getElementById('logout-nav');
-    const userInfo = document.getElementById('user-info');
     const adminNav = document.getElementById('admin-nav');
+    const userStatusSidebar = document.getElementById('user-status-sidebar');
 
     const currentUser = AuthHelper.getCurrentUser();
 
@@ -69,21 +70,25 @@ function updateNavigationUI() {
         // User is logged in
         if (loginNav) loginNav.style.display = 'none';
         if (logoutNav) logoutNav.style.display = 'block';
-        if (userInfo) userInfo.textContent = `Welcome, ${currentUser.name}`;
+        if (userStatusSidebar) {
+            userStatusSidebar.innerHTML = `Logged in as:<br><strong>${currentUser.name}</strong><br>(${currentUser.email})<br><small>Role: ${currentUser.user_type}</small>`;
+            userStatusSidebar.style.display = 'block';
+        }
         
         // Show admin links if user is admin
-        if (adminNav) {
-            if (currentUser.user_type === 'admin') {
-                adminNav.style.display = 'block';
-            } else {
-                adminNav.style.display = 'none';
-            }
-        }
+        const isAdmin = currentUser.user_type === 'admin';
+        if (adminNav) adminNav.style.display = isAdmin ? 'block' : 'none';
     } else {
         // User is not logged in
         if (loginNav) loginNav.style.display = 'block';
         if (logoutNav) logoutNav.style.display = 'none';
-        if (userInfo) userInfo.textContent = '';
         if (adminNav) adminNav.style.display = 'none';
+        if (userStatusSidebar) {
+            userStatusSidebar.innerHTML = 'Not logged in';
+            userStatusSidebar.style.display = 'block';
+        }
     }
 }
+
+// Make function globally available for onclick events
+window.AuthHelper = AuthHelper;

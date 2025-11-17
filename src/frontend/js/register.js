@@ -22,25 +22,17 @@ if (signupForm) {
             const data = await response.json();
             
             if (data.success) {
-                // Store user data in localStorage
-                localStorage.setItem("currentUser", JSON.stringify({
-                    user_id: data.user_id,
-                    name: data.name,
-                    email: data.email,
-                    user_type: data.user_type
-                }));
-                
-                message.textContent = "Registration successful! Redirecting...";
+                // Show success message (don't auto-login)
+                message.textContent = "Registration successful! Redirecting to login...";
                 message.style.color = "green";
                 
-                // Redirect based on user type
+                // Clear the form
+                signupForm.reset();
+                
+                // Redirect to login page after delay
                 setTimeout(() => {
-                    if (data.user_type === 'admin') {
-                        window.location.href = '/admin_event.html';
-                    } else {
-                        window.location.href = '/index.html';
-                    }
-                }, 1000);
+                    window.location.href = '/login';
+                }, 2000);
             } else {
                 message.textContent = data.error || "Registration failed";
                 message.style.color = "red";
@@ -53,9 +45,43 @@ if (signupForm) {
     });
 }
 
-// Menu toggle for sidebar (if you keep it)
+// Create overlay element
+const overlay = document.createElement('div');
+overlay.className = 'sidebar-overlay';
+document.body.appendChild(overlay);
+
+// Sidebar toggle functionality
 const menuToggle = document.getElementById("menuToggle");
 const sidebar = document.getElementById("sidebar");
+
 if (menuToggle && sidebar) {
-    menuToggle.addEventListener("click", () => sidebar.classList.toggle("open"));
+    menuToggle.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+        overlay.classList.toggle("active");
+    });
+    
+    // Close when clicking on a link inside sidebar
+    sidebar.addEventListener("click", (e) => {
+        if (e.target.tagName === 'A') {
+            sidebar.classList.remove("open");
+            overlay.classList.remove("active");
+        }
+    });
+    
+    // Close when clicking on overlay or outside
+    overlay.addEventListener("click", () => {
+        sidebar.classList.remove("open");
+        overlay.classList.remove("active");
+    });
+    
+    // Close when clicking outside the sidebar (backup method)
+    document.addEventListener("click", (e) => {
+        if (sidebar.classList.contains("open") && 
+            !sidebar.contains(e.target) && 
+            e.target !== menuToggle &&
+            e.target !== overlay) {
+            sidebar.classList.remove("open");
+            overlay.classList.remove("active");
+        }
+    });
 }

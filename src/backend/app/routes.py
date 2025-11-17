@@ -300,12 +300,6 @@ def register():
         db.session.add(user)
         db.session.commit()
         
-        # Automatically log in the user after registration
-        session['user_id'] = user.id
-        session['user_email'] = user.email
-        session['user_name'] = user.name
-        session['user_type'] = user.user_type
-        
         return jsonify({
             "success": True, 
             "user_id": user.id,

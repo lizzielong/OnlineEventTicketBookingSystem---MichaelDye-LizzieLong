@@ -545,17 +545,6 @@ body.home-page nav a:hover {
   color: #004400; /* darker green hover */
 }
 
-<header class="top-bar">
-  <button class="menu-btn" id="menuToggle">☰</button>
-
-  <nav class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="bookings.html">My Bookings</a>
-    <a href="admin.html">Admin</a>
-    <a href="login.html">Login</a>
-  </nav>
-</header>
-
 
 /* Menu button on left */
 .menu-btn {
@@ -804,4 +793,37 @@ body.home-page nav a:hover {
 
 .booking-item .release-btn:hover {
   background-color: #7aa76d;
+}
+
+/* ==============================
+   SIDEBAR OVERLAY
+   ============================== */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    display: none;
+}
+
+.sidebar-overlay.active {
+    display: block;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px; /* Start off-screen */
+    width: 280px;
+    height: 100%;
+    z-index: 999;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar.open {
+    left: 0; /* Slide in when open */
 }
