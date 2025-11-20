@@ -19,8 +19,9 @@
     <li><a href="/browse">Browse Events</a></li>
     <li><a href="/bookings">My Bookings</a></li>
     <li id="admin-nav" style="display: none;">
-      <a href="/admin_event">Manage Events</a>
+      <a href="/manage_events">Manage Events</a>
     </li>
+
     <li id="user-status-sidebar" style="padding: 10px 15px; font-weight: bold; color: #2c5f2d; border-bottom: 1px solid #ddd;"></li>
     <li id="login-nav">
       <a href="/login">Login</a>
@@ -32,9 +33,11 @@
 </nav>
 
   <main class="bookings-page">
-    <h1>My Bookings</h1>
-    <div id="booking-list"></div>
+  <h1>My Bookings</h1>
+
+  <div id="booking-list" class="bookings-list"></div>
   </main>
+
 
 <script src="/js/bookings.js"></script>
 <script src="/js/auth.js"></script>

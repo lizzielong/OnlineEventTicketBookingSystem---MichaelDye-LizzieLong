@@ -6,79 +6,76 @@
   <title>Event Details</title>
   <link rel="stylesheet" href="/style/main.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
 </head>
+
 <body>
+
 <!-- ===== Top Green Bar ===== -->
-  <header class="top-bar">
-    <button class="menu-btn" id="menuToggle">☰</button>
-  </header>
+<header class="top-bar">
+  <button class="menu-btn" id="menuToggle">☰</button>
+</header>
 
-  <!-- ===== Sidebar Navigation ===== -->
-  <nav id="sidebar" class="sidebar">
-    <ul>
-      <li><a href="/index">Home</a></li>
-      <li><a href="/browse">Browse Events</a></li>
-      <li><a href="/bookings">My Bookings</a></li>
-      <li id="admin-nav" style="display: none;">
-        <a href="/admin_event">Manage Events</a>
-      </li>
-      <li id="user-status-sidebar" style="padding: 10px 15px; font-weight: bold; color: #2c5f2d; border-bottom: 1px solid #ddd;"></li>
-      <li id="login-nav">
-        <a href="/login">Login</a>
-      </li>
-      <li id="logout-nav" style="display: none;">
-        <a href="#" onclick="AuthHelper.logout()">Log Out</a>
-      </li>
-    </ul>
-  </nav>
+<!-- ===== Sidebar Navigation ===== -->
+<nav id="sidebar" class="sidebar">
+  <ul>
+    <li><a href="/index">Home</a></li>
+    <li><a href="/browse">Browse Events</a></li>
+    <li><a href="/bookings">My Bookings</a></li>
 
-  <!-- User Confirmation Area -->
-  <div class="user-status">
-    <!-- This will be filled dynamically with JS -->
-  </div>
+    <li id="admin-nav" style="display: none;">
+      <a href="/manage_events">Manage Events</a>
+    </li>
 
 
+    <li id="user-status-sidebar"
+      style="padding: 10px 15px; font-weight: bold; color: #2c5f2d; border-bottom: 1px solid #ddd;">
+    </li>
 
-  <!-- Event Content -->
-  <main class="event-page">
-    <a href="/index" class="back-btn">← See all events</a>
+    <li id="login-nav">
+      <a href="/login">Login</a>
+    </li>
 
-   <h1 class="event-title">Combined Worship Night</h1>
-<p class="event-date">Saturday, October 4, 2025 • 6:30pm</p>
+    <li id="logout-nav" style="display: none;">
+      <a href="#" onclick="AuthHelper.logout()">Log Out</a>
+    </li>
+  </ul>
+</nav>
 
-<div class="seat-controls">
-  <button class="book-btn">
-    <i class="fa-solid fa-chair"></i> Save Seat
-  </button>
+<!-- USER STATUS BOX (shows "I'm going!") -->
+<div class="user-status" style="display:none;"></div>
 
-  <p class="seat-available">
-    <strong>Available:</strong> <span id="seatsAvailable">47</span>
-  </p>
-</div>
+<!-- ========= Event Content ========= -->
+<main class="event-page">
+  <a href="/index" class="back-btn">← See all events</a>
 
+  <h1 id="event-title"></h1>
+  <p id="event-date"></p>
 
-<div class="event-details">
-  <div class="detail-box" id="about-event">
-    <h3>About Event</h3>
-    <p id="event-description">
-      All important event details can go here that the Admin writes in —
-      vision behind the event, what to bring, what to expect, etc.
+  <div class="seat-controls">
+    <button id="book-btn" class="book-btn">
+      <i class="fa-solid fa-chair"></i> Save Seat
+    </button>
+
+    <p class="seat-available">
+      <strong>Available:</strong> <span id="seatsAvailable">?</span>
     </p>
   </div>
 
-  <div class="detail-box" id="about-organization">
-    <h3>About Organization/Leader</h3>
-    <p id="organization-description">
-      All important organization details can go here that the Admin writes in —
-      vision behind the organization, how to get connected, etc.
-    </p>
-  </div>
-</div>
+  <div class="event-details">
+    <div class="detail-box">
+      <h3>About Event</h3>
+      <p id="event-description"></p>
+    </div>
 
+    <div class="detail-box">
+      <h3>About Organization/Leader</h3>
+      <p id="organization-description">More information coming soon.</p>
+    </div>
+  </div>
+</main>
 
 <script src="/js/event.js"></script>
-<script src="/js/auth.js"></script> 
+<script src="/js/auth.js"></script>
 
 </body>
 </html>

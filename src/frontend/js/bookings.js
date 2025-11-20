@@ -1,62 +1,92 @@
-// Load saved bookings from localStorage
-let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+//---------------------------------------------------
+// Elements
+//---------------------------------------------------
 const listContainer = document.getElementById("booking-list");
 
-function saveBookings() {
-  localStorage.setItem("bookings", JSON.stringify(bookings));
-}
+// Get logged-in user (frontend memory)
+const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-function displayBookings() {
-  listContainer.innerHTML = ""; // clear current list
 
-  if (bookings.length === 0) {
-    listContainer.innerHTML = "<p>You have no bookings yet.</p>";
-  } else {
-    bookings.forEach(event => {
-      const div = document.createElement("div");
-      div.classList.add("booking-item");
-      div.innerHTML = `
-        <h3>${event.name}</h3>
-        <p>Seats booked: ${event.seatsBooked}</p>
-        <button class="release-btn" data-name="${event.name}">Release Seat</button>
-      `;
-      listContainer.appendChild(div);
-    });
+//---------------------------------------------------
+// Load all bookings from backend
+//---------------------------------------------------
+async function loadBookings() {
+  try {
+    const res = await fetch("/api/my-bookings");
+    const bookings = await res.json();
+
+    renderBookings(bookings);
+
+  } catch (err) {
+    console.error("Error loading bookings:", err);
+    listContainer.innerHTML = `<p style="color:red;">Failed to load bookings.</p>`;
   }
 }
 
-// Handle “Release Seat” button clicks
-listContainer.addEventListener("click", e => {
+
+//---------------------------------------------------
+// Render bookings into HTML
+//---------------------------------------------------
+function renderBookings(bookings) {
+  listContainer.innerHTML = "";
+
+  if (!bookings.length) {
+    listContainer.innerHTML = "<p>You have no bookings yet.</p>";
+    return;
+  }
+
+  bookings.forEach(b => {
+    const div = document.createElement("div");
+    div.classList.add("booking-item");
+
+    div.innerHTML = `
+      <h3>${b.event_title}</h3>
+      <p>Seats booked: ${b.quantity}</p>
+      <button class="release-btn" data-id="${b.id}">Release Seat</button>
+    `;
+
+    listContainer.appendChild(div);
+  });
+}
+
+
+//---------------------------------------------------
+// Release ONE seat = delete ONE booking row
+//---------------------------------------------------
+listContainer.addEventListener("click", async (e) => {
   if (e.target.classList.contains("release-btn")) {
-    const name = e.target.dataset.name;
-    let event = bookings.find(b => b.name === name);
 
-    if (event) {
-      if (event.seatsBooked > 1) {
-        // just decrease one seat
-        event.seatsBooked -= 1;
-        alert(`You released one seat for "${name}".`);
-      } else {
-        // remove entire event if no seats left
-        bookings = bookings.filter(b => b.name !== name);
-        alert(`You have no seats left for "${name}".`);
-      }
+    const bookingId = e.target.dataset.id;
 
-      saveBookings();
-      displayBookings();
+    const res = await fetch(`/api/bookings/${bookingId}`, {
+      method: "DELETE"
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      alert("Seat released.");
+      loadBookings(); // refresh UI
+    } else {
+      alert(data.error);
     }
   }
 });
 
-// Initial render
-displayBookings();
 
-// Create overlay element
+//---------------------------------------------------
+// Initialize Page
+//---------------------------------------------------
+loadBookings();
+
+
+//---------------------------------------------------
+// Sidebar Code
+//---------------------------------------------------
 const overlay = document.createElement('div');
 overlay.className = 'sidebar-overlay';
 document.body.appendChild(overlay);
 
-// Sidebar toggle functionality
 const menuToggle = document.getElementById("menuToggle");
 const sidebar = document.getElementById("sidebar");
 
@@ -65,25 +95,22 @@ if (menuToggle && sidebar) {
         sidebar.classList.toggle("open");
         overlay.classList.toggle("active");
     });
-    
-    // Close when clicking on a link inside sidebar
+
     sidebar.addEventListener("click", (e) => {
         if (e.target.tagName === 'A') {
             sidebar.classList.remove("open");
             overlay.classList.remove("active");
         }
     });
-    
-    // Close when clicking on overlay or outside
+
     overlay.addEventListener("click", () => {
         sidebar.classList.remove("open");
         overlay.classList.remove("active");
     });
-    
-    // Close when clicking outside the sidebar (backup method)
+
     document.addEventListener("click", (e) => {
-        if (sidebar.classList.contains("open") && 
-            !sidebar.contains(e.target) && 
+        if (sidebar.classList.contains("open") &&
+            !sidebar.contains(e.target) &&
             e.target !== menuToggle &&
             e.target !== overlay) {
             sidebar.classList.remove("open");

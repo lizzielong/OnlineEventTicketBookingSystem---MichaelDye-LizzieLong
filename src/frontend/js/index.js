@@ -59,7 +59,7 @@ async function loadEvents() {
       row.innerHTML = `
         <td>${new Date(ev.starts_at).toLocaleDateString()}</td>
         <td>@ ${new Date(ev.starts_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</td>
-        <td><a href="event.html?id=${ev.id}" class="event-title-pill">${ev.title}</a></td>
+        <td><a href="/event.html?id=${ev.id}" class="event-title-pill">${ev.title}</a></td>
         <td><span class="loc"><span class="pin" aria-hidden="true">⚲</span> ${ev.venue}</span></td>
       `;
       eventTableBody.appendChild(row);

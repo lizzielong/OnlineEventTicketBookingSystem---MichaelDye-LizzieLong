@@ -1,80 +1,97 @@
-<!--
-Eventually, user will log in, backend will verify
-credentials, the backend will send back a "role"
-to the front end, then the Javascript will store that
-in local storage (cookie), then admin_event.html will
-check stored value to know if they are an admin
--->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Create New Event</title>
+
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Main CSS -->
   <link rel="stylesheet" href="/style/main.css" />
 </head>
+
 <body class="auth-page">
-  <!-- ===== Top Green Bar ===== -->
-  <header class="top-bar">
-    <button class="menu-btn" id="menuToggle">☰</button>
-  </header>
 
-  <!-- ===== Sidebar Navigation ===== -->
-  <nav id="sidebar" class="sidebar">
-    <ul>
-      <li><a href="/index">Home</a></li>
-      <li><a href="/browse">Browse Events</a></li>
-      <li><a href="/bookings">My Bookings</a></li>
-      <li id="admin-nav" style="display: none;">
-        <a href="/admin_event">Manage Events</a>
-      </li>
-      <li id="user-status-sidebar" style="padding: 10px 15px; font-weight: bold; color: #2c5f2d; border-bottom: 1px solid #ddd;"></li>
-      <li id="login-nav">
-        <a href="/login">Login</a>
-      </li>
-      <li id="logout-nav" style="display: none;">
-        <a href="#" onclick="AuthHelper.logout()">Log Out</a>
-      </li>
-    </ul>
-  </nav>
+<!-- ===== Header ===== -->
+<header class="top-bar">
+  <button class="menu-btn" id="menuToggle">☰</button>
+</header>
 
-  <main class="auth-container">
-    <div class="auth-box">
-      <h1>Create a New Event</h1>
+<!-- ===== Sidebar Navigation ===== -->
+<nav id="sidebar" class="sidebar">
+  <ul>
+    <li><a href="/index">Home</a></li>
+    <li><a href="/browse">Browse Events</a></li>
+    <li><a href="/bookings">My Bookings</a></li>
 
-      <form id="eventForm">
-        <label for="eventName">Event Name</label>
-        <input type="text" id="eventName" placeholder="e.g. Combined Worship Night" required>
+    <!-- Admin Only -->
+    <li id="admin-nav" style="display: none;">
+      <a href="/manage_events">Manage Events</a>
+    </li>
 
-        <label for="eventDate">Date</label>
-        <input type="text" id="eventDate" placeholder="e.g. Saturday, October 4, 2025" required>
+    <li id="user-status-sidebar"
+        style="padding: 10px 15px; font-weight: bold; color: #2c5f2d; border-bottom: 1px solid #ddd;">
+    </li>
 
-        <label for="eventTime">Time</label>
-        <input type="text" id="eventTime" placeholder="e.g. 6:30 PM" required>
+    <li id="login-nav"><a href="/login">Login</a></li>
+    <li id="logout-nav" style="display: none;">
+      <a href="#" onclick="AuthHelper.logout()">Log Out</a>
+    </li>
+  </ul>
+</nav>
 
-        <label for="eventLocation">Location</label>
-        <input type="text" id="eventLocation" placeholder="e.g. Brashier Glade" required>
 
-        <label for="eventAbout">About Event</label>
-        <textarea id="eventAbout" rows="4" placeholder="Describe the event..."></textarea>
+<!-- ===== Create Event Form ===== -->
+<main class="auth-container">
+  <div class="auth-box">
 
-        <label for="orgAbout">About Organization/Leader</label>
-        <textarea id="orgAbout" rows="4" placeholder="Who is leading this event?"></textarea>
+    <h1>Create a New Event</h1>
 
-        <label for="availableSeats">Seats Available</label>
-        <input type="number" id="availableSeats" placeholder="e.g. 50" required min="1">
+    <form id="eventForm">
 
-        <button type="submit" class="signup-btn">Save Event</button>
-      </form>
+      <!-- Event Name -->
+      <label for="eventName">Event Name</label>
+      <input type="text" id="eventName" placeholder="e.g. Combined Worship Night" required>
 
-      <p id="saveMessage" style="margin-top:10px;color:green;"></p>
-    </div>
-  </main>
+      <!-- Date -->
+      <label for="eventDate">Date</label>
+      <input type="date" id="eventDate" required>
 
-<script src="/js/create_event.js"></script>
+      <!-- Start Time -->
+      <label for="eventTime">Start Time</label>
+      <input type="time" id="eventTime" required>
+
+      <!-- End Time -->
+      <label for="eventEndTime">End Time</label>
+      <input type="time" id="eventEndTime" required>
+
+      <!-- Location -->
+      <label for="eventLocation">Location</label>
+      <input type="text" id="eventLocation" placeholder="e.g. Brashier Glade" required>
+
+      <!-- Description / About Event -->
+      <label for="eventAbout">About Event</label>
+      <textarea id="eventAbout" rows="4" placeholder="Describe the event..."></textarea>
+
+      <!-- Seats Available -->
+      <label for="availableSeats">Seats Available</label>
+      <input type="number" id="availableSeats" placeholder="e.g. 50" min="1" required>
+
+      <button type="submit" class="signup-btn">Save Event</button>
+    </form>
+
+    <p id="saveMessage" style="margin-top:10px;color:green;"></p>
+
+  </div>
+</main>
+
+
+<!-- ===== Scripts ===== -->
 <script src="/js/auth.js"></script>
+<script src="/js/create_event.js"></script>
+
 
 </body>
 </html>

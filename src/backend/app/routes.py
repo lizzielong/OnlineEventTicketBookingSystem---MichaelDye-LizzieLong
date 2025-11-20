@@ -61,9 +61,9 @@ def serve_frontend_pages(page):
 
 # ===== STATIC ASSETS =====
 
-@bp.get("/js/<path:filename>")
-def serve_js(filename):
-    """Serve JavaScript files"""
+@bp.get("/js/<path:filename>") 
+def serve_js(filename): 
+    """Serve JavaScript files""" 
     return send_from_directory(os.path.join(FRONTEND_PATH, 'js'), filename)
 
 @bp.get("/style/<path:filename>")
