@@ -827,3 +827,45 @@ body.home-page nav a:hover {
 .sidebar.open {
     left: 0; /* Slide in when open */
 }
+
+/* Make event table wider and centered */
+.events-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px; /* space between table and search bar */
+  width: 100%;
+  margin-top: 30px;
+}
+
+
+.table-scroller {
+  width: 800px; /* <-- CHANGE THIS TO INCREASE WIDTH */
+}
+
+/* Make table fill its container */
+.event-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.event-table th,
+.event-table td {
+  padding: 12px 16px; /* More padding = nicer spacing */
+}
+
+/* Fix alignment of Edit/Delete buttons */
+.event-table td {
+  vertical-align: middle;      /* ensures perfect vertical centering */
+  text-align: center;          /* centers button horizontally */
+}
+
+/* Make action buttons the same size */
+.event-table .edit-btn,
+.event-table .delete-btn {
+  display: inline-block;
+  padding: 8px 16px;
+  text-align: center;
+  margin: 0 auto;              /* ensures perfect centering */
+}
+

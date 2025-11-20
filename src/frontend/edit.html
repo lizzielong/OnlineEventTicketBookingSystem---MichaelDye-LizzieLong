@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Event</title>
+  <link rel="stylesheet" href="/style/main.css">
+</head>
+
+<body class="auth-page">
+
+<header class="top-bar">
+  <button class="menu-btn" id="menuToggle">☰</button>
+</header>
+
+<nav id="sidebar" class="sidebar">
+  <ul>
+    <li><a href="/index">Home</a></li>
+    <li><a href="/browse">Browse Events</a></li>
+    <li><a href="/bookings">My Bookings</a></li>
+
+    <li id="admin-nav" style="display:none;">
+      <a href="/manage_events">Manage Events</a>
+    </li>
+
+    <li id="user-status-sidebar"
+        style="padding: 10px 15px; font-weight:bold; color:#2c5f2d; border-bottom:1px solid #ddd;">
+    </li>
+
+    <li id="login-nav"><a href="/login">Login</a></li>
+    <li id="logout-nav" style="display:none;"><a href="#" onclick="AuthHelper.logout()">Log Out</a></li>
+  </ul>
+</nav>
+
+<main class="auth-container">
+  <div class="auth-box">
+
+    <h1>Edit Event</h1>
+
+    <form id="editForm">
+
+      <label for="eventName">Event Name</label>
+      <input type="text" id="eventName" required>
+
+      <label for="eventDate">Date</label>
+      <input type="date" id="eventDate" required>
+
+      <label for="eventTime">Start Time</label>
+      <input type="time" id="eventTime" required>
+
+      <label for="eventEndTime">End Time</label>
+      <input type="time" id="eventEndTime" required>
+
+      <label for="eventLocation">Location</label>
+      <input type="text" id="eventLocation" required>
+
+      <label for="eventAbout">About Event</label>
+      <textarea id="eventAbout" rows="4"></textarea>
+
+      <label for="availableSeats">Capacity</label>
+      <input type="number" id="availableSeats" min="1" required>
+
+      <button type="submit" class="signup-btn">Save Changes</button>
+    </form>
+
+    <p id="saveMessage" style="margin-top:10px;color:green;"></p>
+  </div>
+</main>
+
+<script src="/js/auth.js"></script>
+<script src="/js/edit.js"></script>
+
+</body>
+</html>

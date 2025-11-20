@@ -25,7 +25,7 @@ async function loadEvents() {
       return;
     }
 
-    // Build the table just like index.html
+    // Build the table
     let html = `
       <table class="event-table">
         <thead>
@@ -34,6 +34,7 @@ async function loadEvents() {
             <th>Time</th>
             <th>Event Title</th>
             <th>Location</th>
+            <th>Edit</th>
             <th>Delete</th>
           </tr>
         </thead>
@@ -49,9 +50,17 @@ async function loadEvents() {
           <td>${ev.venue}</td>
 
           <td>
+            <a class="signup-btn edit-btn" 
+               href="/edit?id=${ev.id}"
+               style="background:#2980b9; padding:6px 12px; display:inline-block;">
+              Edit
+            </a>
+          </td>
+
+          <td>
             <button class="signup-btn delete-btn" 
                     data-id="${ev.id}"
-                    style="background:#c0392b; padding:6px 10px;">
+                    style="background:#c0392b; padding:6px 12px;">
               Delete
             </button>
           </td>
@@ -59,7 +68,12 @@ async function loadEvents() {
       `;
     });
 
-    html += `</tbody></table>`;
+    // CLOSE TABLE — was missing!
+    html += `
+        </tbody>
+      </table>
+    `;
+
     eventList.innerHTML = html;
 
   } catch (error) {
@@ -106,6 +120,7 @@ document.addEventListener("click", (e) => {
 // Initialize
 //---------------------------------------------------
 loadEvents();
+
 //---------------------------------------------------
 // SIDEBAR CODE (same as the other pages)
 //---------------------------------------------------

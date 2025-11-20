@@ -73,3 +73,28 @@ async function loadEvents() {
 }
 
 loadEvents();
+
+// ===============================
+// SEARCH FUNCTIONALITY
+// ===============================
+const searchInput = document.querySelector(".search-side input");
+
+if (searchInput) {
+  searchInput.addEventListener("input", () => {
+    const term = searchInput.value.toLowerCase();
+    const rows = document.querySelectorAll(".event-table tbody tr");
+
+    rows.forEach(row => {
+      const text = row.innerText.toLowerCase();
+
+      if (term === "") {
+        // remove highlight when search is empty
+        row.style.backgroundColor = "";
+      } else if (text.includes(term)) {
+        row.style.backgroundColor = "#fffaa0"; // light yellow highlight
+      } else {
+        row.style.backgroundColor = ""; // normal row color
+      }
+    });
+  });
+}
