@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manage Events</title>
+  <title>Booking Report</title>
   <link rel="stylesheet" href="/style/main.css">
 </head>
 
@@ -37,24 +37,37 @@
   </ul>
 </nav>
 
-<main class="manage-events-container">
-  <div class="manage-events-box">
 
+<main class="auth-container">
+  <div class="auth-box" style="max-width:900px; width:90%; text-align:center;">
 
-    <h1>Manage Events</h1>
+    <h1>Booking Report</h1>
+    <p>All event bookings across all users</p>
 
-    <p><a href="/create_event" class="signup-btn" style="display:inline-block;width:auto;">+ Create New Event</a></p>
-
-    <div id="eventList">
-      <p>Loading events...</p>
+    <div class="table-scroller" style="margin-top:20px;">
+      <table class="event-table">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Email</th>
+            <th>Event</th>
+            <th>Date</th>
+            <th>Qty</th>
+            <th>Booked At</th>
+          </tr>
+        </thead>
+        <tbody id="reportTableBody">
+          <!-- Rows will be inserted here -->
+        </tbody>
+      </table>
     </div>
 
   </div>
 </main>
 
-<script src="/js/auth.js"></script>
-<script src="/js/manage_events.js"></script>
 
+<script src="/js/auth.js"></script>
+<script src="/js/booking_report.js"></script>
 
 </body>
 </html>
